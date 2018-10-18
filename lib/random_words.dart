@@ -72,6 +72,15 @@ class RandomWordsState extends State<RandomWords> {
 
   Widget _buildRow(WordPair pair) {
     final bool alreadSaved = _saved.contains(pair);
+    void _onTabHandler () {
+        setState(() {
+          if (alreadSaved) {
+            _saved.remove(pair);
+          } else {
+            _saved.add(pair);
+          }
+        });
+    }
     return ListTile(
       title: Text(
         pair.asPascalCase,
@@ -81,15 +90,7 @@ class RandomWordsState extends State<RandomWords> {
         alreadSaved ? Icons.favorite : Icons.favorite_border,
         color: alreadSaved ? Colors.red : null,
       ),
-      onTap: () {
-        setState(() {
-          if (alreadSaved) {
-            _saved.remove(pair);
-          } else {
-            _saved.add(pair);
-          }
-        });
-      },
+      onTap: _onTabHandler
     );
   }
 }
